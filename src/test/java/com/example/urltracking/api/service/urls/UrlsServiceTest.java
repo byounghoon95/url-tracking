@@ -99,4 +99,22 @@ class UrlsServiceTest {
                 .isInstanceOf(CustomException.class)
                 .hasMessage("VALID URL IS NOT EXIST");
     }
+
+    @DisplayName("url의 조회수를 증가시킬 때 url이 등록되어있지 않으면 예외가 발생한다")
+    @Test
+    void get_url_count() {
+        // given
+        setUpUrl();
+        UrlUpdateServiceRequest request = UrlUpdateServiceRequest.builder()
+                .url("www.abc.com/1/2")
+                .trackingUrl("www.abc.com/123123")
+                .dailyCount(0)
+                .totalCount(0)
+                .build();
+
+        // when // then
+        assertThatThrownBy(() -> urlsService.updateUrlCount(request))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("VALID URL IS NOT EXIST");
+    }
 }
