@@ -38,7 +38,7 @@ public class UrlCreateServiceRequest {
                 .url(url)
                 .trackingUrl(trackingUrl)
                 .date(LocalDate.now())
-                .count(0)
+                .dailyCount(0)
                 .build();
     }
 }
