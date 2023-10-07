@@ -30,14 +30,26 @@ public class Urls {
     @Column(name = "total_count")
     private int count = 0;
 
+    @Transient
+    private int dailyCount = 0;
+
     @Builder
-    public Urls(String url, String trackingUrl, int count) {
+    public Urls(String url, String trackingUrl, int count, int dailyCount) {
         this.url = url;
         this.trackingUrl = trackingUrl;
         this.count = count;
+        this.dailyCount = dailyCount;
     }
 
     public void deleteUrl() {
         this.isDeleted = true;
+    }
+
+    public void addCount() {
+        this.count++;
+    }
+
+    public void updateDailyCount(int dailyCount) {
+        this.dailyCount = dailyCount;
     }
 }
