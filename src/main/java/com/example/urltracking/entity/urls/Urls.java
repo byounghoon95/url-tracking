@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,12 +34,16 @@ public class Urls {
     @Transient
     private int dailyCount = 0;
 
+    @Transient
+    private LocalDate date;
+
     @Builder
-    public Urls(String url, String trackingUrl, int totalCount, int dailyCount) {
+    public Urls(String url, String trackingUrl, int totalCount, int dailyCount, LocalDate date) {
         this.url = url;
         this.trackingUrl = trackingUrl;
         this.totalCount = totalCount;
         this.dailyCount = dailyCount;
+        this.date = date;
     }
 
     public void deleteUrl() {
