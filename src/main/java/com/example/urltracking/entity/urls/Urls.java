@@ -21,6 +21,9 @@ public class Urls {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "tracking_url")
+    private String trackingUrl;
+
     @Column(name = "id_deleted")
     private boolean isDeleted = false;
 
@@ -28,8 +31,9 @@ public class Urls {
     private int count = 0;
 
     @Builder
-    public Urls(String url, int count) {
+    public Urls(String url, String trackingUrl, int count) {
         this.url = url;
+        this.trackingUrl = trackingUrl;
         this.count = count;
     }
 
