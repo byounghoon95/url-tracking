@@ -34,7 +34,7 @@ public class UrlUpdateResponse {
                 .url(url.getUrl())
                 .trackingUrl(url.getTrackingUrl())
                 .dailyCount(url.getDailyCount())
-                .totalCount(url.getCount())
+                .totalCount(url.getTotalCount())
                 .build();
     }
 }

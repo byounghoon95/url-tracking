@@ -34,7 +34,7 @@ class UrlsServiceTest {
         return Urls.builder()
                 .url(url)
                 .trackingUrl(trackingUrl)
-                .count(0)
+                .totalCount(0)
                 .build();
     }
 

@@ -28,16 +28,16 @@ public class Urls {
     private boolean isDeleted = false;
 
     @Column(name = "total_count")
-    private int count = 0;
+    private int totalCount = 0;
 
     @Transient
     private int dailyCount = 0;
 
     @Builder
-    public Urls(String url, String trackingUrl, int count, int dailyCount) {
+    public Urls(String url, String trackingUrl, int totalCount, int dailyCount) {
         this.url = url;
         this.trackingUrl = trackingUrl;
-        this.count = count;
+        this.totalCount = totalCount;
         this.dailyCount = dailyCount;
     }
 
@@ -46,7 +46,7 @@ public class Urls {
     }
 
     public void addCount() {
-        this.count++;
+        this.totalCount++;
     }
 
     public void updateDailyCount(int dailyCount) {
