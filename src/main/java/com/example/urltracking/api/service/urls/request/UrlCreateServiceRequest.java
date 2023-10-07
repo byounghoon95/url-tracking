@@ -1,4 +1,4 @@
-package com.example.urltracking.api.urls.service.request;
+package com.example.urltracking.api.service.urls.request;
 
 import com.example.urltracking.entity.urls.Urls;
 import lombok.Builder;

@@ -21,15 +21,15 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(true) // Swagger 에서 제공해주는 기본 응답 코드 (200, 401, 403, 404) 등의 노출 여부
                 .apiInfo(apiInfo()) // Swagger UI 로 노출할 정보
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.bcafe.api.controller")) // api 스펙이 작성되어 있는 패키지 (controller)
+                .apis(RequestHandlerSelectors.basePackage("com.example.urltracking.api.controller")) // api 스펙이 작성되어 있는 패키지 (controller)
                 .paths(PathSelectors.ant("/api/**")) // apis 에 위치하는 API 중 특정 path 를 선택
                 .build();
     }
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("BCafe Rest API Docs")
-                .description("This is Docs about BCafe")
+                .title("url-tracking Rest API Docs")
+                .description("This is Docs about url-tracking")
                 .version("1.0")
                 .build();
     }

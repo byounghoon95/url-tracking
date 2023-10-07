@@ -1,8 +1,8 @@
-package com.example.urltracking.api.urls.service;
+package com.example.urltracking.api.service.urls;
 
-import com.example.urltracking.api.urls.repository.UrlsRepository;
-import com.example.urltracking.api.urls.service.request.UrlCreateServiceRequest;
-import com.example.urltracking.api.urls.service.response.UrlCreateResponse;
+import com.example.urltracking.api.repository.urls.UrlsRepository;
+import com.example.urltracking.api.service.urls.request.UrlCreateServiceRequest;
+import com.example.urltracking.api.service.urls.response.UrlCreateResponse;
 import com.example.urltracking.entity.urls.Urls;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
