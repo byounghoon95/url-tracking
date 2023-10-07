@@ -60,4 +60,18 @@ class UrlsRepositoryTest {
         // then
         assertThat(response).isEqualTo(false);
     }
+
+    @DisplayName("트래킹 url을 조회한다")
+    @Test
+    void find_by_tracking_url() {
+        // given
+        String trackingUrl = "https://make.my.url/1";
+
+        // when
+        Urls response = urlsRepository.findByTrackingUrl(trackingUrl).get();
+
+        // then
+        assertThat(response.getUrl()).isEqualTo("localhost://asdf/1");
+        assertThat(response.getTrackingUrl()).isEqualTo("https://make.my.url/1");
+    }
 }
