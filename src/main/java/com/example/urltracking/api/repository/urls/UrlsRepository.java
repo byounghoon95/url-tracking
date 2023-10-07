@@ -1,4 +1,4 @@
-package com.example.urltracking.api.urls.repository;
+package com.example.urltracking.api.repository.urls;
 
 import com.example.urltracking.entity.urls.Urls;
 import org.springframework.data.jpa.repository.JpaRepository;
