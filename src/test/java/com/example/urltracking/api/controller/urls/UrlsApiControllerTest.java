@@ -1,6 +1,7 @@
 package com.example.urltracking.api.controller.urls;
 
 import com.example.urltracking.api.controller.urls.request.UrlCreateRequest;
+import com.example.urltracking.api.controller.urls.request.UrlUpdateRequest;
 import com.example.urltracking.api.service.urls.UrlsService;
 import com.example.urltracking.enums.CodeEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +34,12 @@ class UrlsApiControllerTest {
                 .build();
     }
 
+    private UrlUpdateRequest urlUpdateRequest() {
+        return UrlUpdateRequest.builder()
+                .trackingUrl("www.abc.com/asdffezcvvfafa")
+                .build();
+    }
+
     @DisplayName("새로운 url을 등록한다")
     @Test
     void create_url() throws Exception {
@@ -41,6 +48,22 @@ class UrlsApiControllerTest {
 
         //when //then
         mockMvc.perform(post("/api/urls/create")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(jsonPath("$.code").value(CodeEnum.SUCCESS.getCode()))
+        ;
+    }
+
+    @DisplayName("url의 dailycount와 totalcount를 증가시킨다")
+    @Test
+    void update_url_count() throws Exception {
+        //given
+        UrlUpdateRequest request = urlUpdateRequest();
+
+        //when //then
+        mockMvc.perform(post("/api/urls/update")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )

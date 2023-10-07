@@ -7,23 +7,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class UrlCreateServiceRequest {
+public class UrlUpdateServiceRequest {
     private String url;
     private String trackingUrl;
+    private int dailyCount;
+    private int totalCount;
 
     @Builder
-    public UrlCreateServiceRequest(String url,String trackingUrl) {
+    public UrlUpdateServiceRequest(String url, String trackingUrl, int dailyCount, int totalCount) {
         this.url = url;
         this.trackingUrl = trackingUrl;
-    }
-
-    public void convertUrl() {
-        String uuid = UUID.randomUUID().toString();
-        this.trackingUrl = "https://make.my.url/" + uuid;
+        this.dailyCount = dailyCount;
+        this.totalCount = totalCount;
     }
 
     public Urls toUrlsEntity() {
@@ -42,3 +40,4 @@ public class UrlCreateServiceRequest {
                 .build();
     }
 }
+
