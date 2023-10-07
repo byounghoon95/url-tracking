@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 
 @ApiModel(value = "Url 생성 DTO", description = "요청 url(url)을 필드로 갖는 DTO")
 @Getter
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class UrlCreateRequest {
 
     @ApiModelProperty(value = "요청 Url")
+    @NotBlank(message = "url은 필수입니다")
     private String url;
 
     @Builder

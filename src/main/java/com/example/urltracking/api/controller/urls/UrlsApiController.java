@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Api("Urls Controller API")
 @RequestMapping("/api/urls")
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class UrlsApiController {
 
     @ApiOperation(value = "url 생성", notes = "url을 받아 추적 가능한 url을 추가해 반환한다")
     @PostMapping("/create")
-    public CommonResponse<UrlCreateResponse> createUrl(@RequestBody UrlCreateRequest request) {
+    public CommonResponse<UrlCreateResponse> createUrl(@RequestBody @Valid UrlCreateRequest request) {
         return new CommonResponse<>(urlsService.createUrl(request.toServiceRequest()));
     }
 }
