@@ -2,8 +2,10 @@ package com.example.urltracking.api.service.urls;
 
 import com.example.urltracking.api.repository.dailycount.DailyCountRepository;
 import com.example.urltracking.api.repository.urls.UrlsRepository;
+import com.example.urltracking.api.service.urls.request.UrlCountServiceRequest;
 import com.example.urltracking.api.service.urls.request.UrlCreateServiceRequest;
 import com.example.urltracking.api.service.urls.request.UrlUpdateServiceRequest;
+import com.example.urltracking.api.service.urls.response.UrlCountResponse;
 import com.example.urltracking.api.service.urls.response.UrlCreateResponse;
 import com.example.urltracking.api.service.urls.response.UrlUpdateResponse;
 import com.example.urltracking.entity.dailycount.DailyCount;
@@ -49,13 +51,22 @@ public class UrlsService {
         if (dailyCountOpt.isPresent()) {
             dailyCount = dailyCountOpt.get();
         } else {
+            request.updateUrl(findUrl.getUrl());
             dailyCount = dailyCountRepository.save(request.toDailyCountEntity());
         }
 
         findUrl.addCount();
         dailyCount.addCount();
-        findUrl.updateDailyCount(dailyCount.getCount());
+        findUrl.updateDailyCount(dailyCount.getDailyCount());
         return UrlUpdateResponse.of(findUrl);
     }
 
+    public UrlCountResponse getUrlCount(UrlCountServiceRequest request) {
+        urlsRepository.findByTrackingUrl(request.getTrackingUrl()).orElseThrow(
+                () -> new CustomException(CodeEnum.URL_NOTFOUND)
+        );
+
+        Urls responseUrl = urlsRepository.findCountByTrackingUrl(request.getTrackingUrl()).get();
+        return UrlCountResponse.of(responseUrl);
+    }
 }

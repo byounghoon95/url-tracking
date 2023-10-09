@@ -29,17 +29,17 @@ public class DailyCount {
     private LocalDate date;
 
     @Column(name = "daily_count")
-    private int count = 0;
+    private int dailyCount = 0;
 
     @Builder
-    public DailyCount(String url,String trackingUrl, LocalDate date, int count) {
+    public DailyCount(String url,String trackingUrl, LocalDate date, int dailyCount) {
         this.url = url;
         this.trackingUrl = trackingUrl;
         this.date = date;
-        this.count = count;
+        this.dailyCount = dailyCount;
     }
 
     public void addCount() {
-        this.count++;
+        this.dailyCount++;
     }
 }

@@ -1,44 +1,24 @@
 package com.example.urltracking.api.controller.urls;
 
+import com.example.urltracking.CommonControllerTest;
+import com.example.urltracking.api.controller.urls.request.UrlCountRequest;
 import com.example.urltracking.api.controller.urls.request.UrlCreateRequest;
 import com.example.urltracking.api.controller.urls.request.UrlUpdateRequest;
-import com.example.urltracking.api.service.urls.UrlsService;
 import com.example.urltracking.enums.CodeEnum;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ActiveProfiles("test")
 @WebMvcTest
-class UrlsApiControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
-    @MockBean
-    private UrlsService urlsService;
-
-    private UrlCreateRequest urlCreateRequest() {
-        return UrlCreateRequest.builder()
-                .url("www.abc.com/1/2")
-                .build();
-    }
-
-    private UrlUpdateRequest urlUpdateRequest() {
-        return UrlUpdateRequest.builder()
-                .trackingUrl("www.abc.com/asdffezcvvfafa")
-                .build();
-    }
+class UrlsApiControllerTest extends CommonControllerTest {
 
     @DisplayName("새로운 url을 등록한다")
     @Test
@@ -64,6 +44,22 @@ class UrlsApiControllerTest {
 
         //when //then
         mockMvc.perform(post("/api/urls/update")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(jsonPath("$.code").value(CodeEnum.SUCCESS.getCode()))
+        ;
+    }
+
+    @DisplayName("url의 dailycount, totalcount, date, url을 조회한다")
+    @Test
+    void get_url_count() throws Exception {
+        //given
+        UrlCountRequest request = urlCountRequest();
+
+        //when //then
+        mockMvc.perform(get("/api/urls/get/count")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
