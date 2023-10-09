@@ -24,6 +24,10 @@ public class UrlUpdateServiceRequest {
         this.totalCount = totalCount;
     }
 
+    public void updateUrl(String url) {
+        this.url = url;
+    }
+
     public Urls toUrlsEntity() {
         return Urls.builder()
                 .url(url)

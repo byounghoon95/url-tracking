@@ -51,6 +51,7 @@ public class UrlsService {
         if (dailyCountOpt.isPresent()) {
             dailyCount = dailyCountOpt.get();
         } else {
+            request.updateUrl(findUrl.getUrl());
             dailyCount = dailyCountRepository.save(request.toDailyCountEntity());
         }
 
