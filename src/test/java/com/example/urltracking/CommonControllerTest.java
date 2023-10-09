@@ -47,7 +47,6 @@ public abstract class CommonControllerTest {
     protected UrlCountRequest urlCountRequest() {
         return UrlCountRequest.builder()
                 .trackingUrl("www.abc.com/asdffezcvvfafa")
-                .date(LocalDate.of(2023,10,7))
                 .build();
     }
 

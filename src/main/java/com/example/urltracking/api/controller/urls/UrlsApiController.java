@@ -34,7 +34,7 @@ public class UrlsApiController {
         return new CommonResponse<>(urlsService.updateUrlCount(request.toServiceRequest()));
     }
 
-    @ApiOperation(value = "일간/누적 조회수 응답", notes = "url을 받아 일간/누적 조회수를 반환한다")
+    @ApiOperation(value = "오늘/누적 조회수 응답", notes = "url을 받아 오늘/누적 조회수를 반환한다")
     @GetMapping("/get/count")
     public CommonResponse<UrlCountResponse> getUrlCount(@RequestBody @Valid UrlCountRequest request) {
         return new CommonResponse<>(urlsService.getUrlCount(request.toServiceRequest()));

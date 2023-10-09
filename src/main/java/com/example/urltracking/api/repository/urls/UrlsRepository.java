@@ -14,11 +14,11 @@ public interface UrlsRepository extends JpaRepository<Urls,Long> {
     Optional<Urls> findByTrackingUrl(String trackingUrl);
 
     @Query(value =
-            "SELECT NEW com.example.urltracking.entity.urls.Urls(u.url, u.trackingUrl, u.totalCount, d.dailyCount, d.date) " +
+            "SELECT NEW com.example.urltracking.entity.urls.Urls(u.url, u.trackingUrl, u.totalCount, COALESCE(d.dailyCount, 0),COALESCE(d.date, CURRENT_DATE)) " +
             "FROM Urls u " +
             "LEFT JOIN DailyCount d ON u.trackingUrl = d.trackingUrl " +
-            "WHERE u.trackingUrl = :trackingUrl " +
-            "AND d.date = CURRENT_DATE "
+            "AND d.date = CURRENT_DATE " +
+            "WHERE u.trackingUrl = :trackingUrl "
     )
     Optional<Urls> findCountByTrackingUrl(@Param("trackingUrl") String trackingUrl);
 }
