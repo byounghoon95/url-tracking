@@ -76,6 +76,27 @@ class UrlsServiceTest extends CommonServiceTest {
                 .hasMessage("VALID URL IS NOT EXIST");
     }
 
+    @DisplayName("url의 조회수를 증가시킬 때 해당 날짜에 처음 클릭된 것이라면 데이터를 추가하고 수정한다")
+    @Test
+    void update_url_count_no_dailycount() {
+        // given
+        UrlUpdateServiceRequest request = UrlUpdateServiceRequest.builder()
+                .url("localhost://test/3")
+                .trackingUrl("https://make.my.url/3")
+                .dailyCount(0)
+                .totalCount(4)
+                .build();
+
+        //when
+        UrlUpdateResponse response = urlsService.updateUrlCount(request);
+
+        //then
+        assertNotNull(response);
+        assertEquals(request.getUrl(), response.getUrl());
+        assertThat(request.getDailyCount() + 1).isEqualTo(response.getDailyCount());
+        assertThat(request.getTotalCount() + 1).isEqualTo(response.getTotalCount());
+    }
+
 //    @DisplayName("url의 조회수를 증가시킬 때 url이 등록되어있지 않으면 예외가 발생한다")
 //    @Test
 //    void get_url_count() {

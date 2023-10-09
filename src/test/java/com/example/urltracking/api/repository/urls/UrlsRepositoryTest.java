@@ -54,19 +54,19 @@ class UrlsRepositoryTest extends CommonRepositoryTest {
         assertThat(response.getTrackingUrl()).isEqualTo("https://make.my.url/1");
     }
 
-    @DisplayName("트래킹 url을 조회한다")
+    @DisplayName("트래킹 url로 오늘/누적 카운드를 반환한다")
     @Test
     void find_count_by_tracking_url() {
         // given
-        String trackingUrl = "https://make.my.url/1";
+        String trackingUrl = "https://make.my.url/4";
 
         // when
-        Urls response = urlsRepository.findCountByTrackingUrl(trackingUrl, LocalDate.of(2023, 10, 8)).get();
+        Urls response = urlsRepository.findCountByTrackingUrl(trackingUrl).get();
 
         // then
-        assertThat(response.getUrl()).isEqualTo("localhost://test/1");
-        assertThat(response.getTrackingUrl()).isEqualTo("https://make.my.url/1");
-        assertThat(response.getDailyCount()).isEqualTo(3);
+        assertThat(response.getUrl()).isEqualTo("localhost://test/4");
+        assertThat(response.getTrackingUrl()).isEqualTo("https://make.my.url/4");
+        assertThat(response.getDailyCount()).isEqualTo(5);
         assertThat(response.getTotalCount()).isEqualTo(5);
     }
 }

@@ -18,7 +18,7 @@ public interface UrlsRepository extends JpaRepository<Urls,Long> {
             "FROM Urls u " +
             "LEFT JOIN DailyCount d ON u.trackingUrl = d.trackingUrl " +
             "WHERE u.trackingUrl = :trackingUrl " +
-            "AND d.date = :date "
+            "AND d.date = CURRENT_DATE "
     )
-    Optional<Urls> findCountByTrackingUrl(@Param("trackingUrl") String trackingUrl, @Param("date") LocalDate date);
+    Optional<Urls> findCountByTrackingUrl(@Param("trackingUrl") String trackingUrl);
 }

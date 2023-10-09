@@ -66,7 +66,7 @@ public class UrlsService {
                 () -> new CustomException(CodeEnum.URL_NOTFOUND)
         );
 
-        Urls responseUrl = urlsRepository.findCountByTrackingUrl(request.getTrackingUrl(), request.getDate()).get();
+        Urls responseUrl = urlsRepository.findCountByTrackingUrl(request.getTrackingUrl()).get();
         return UrlCountResponse.of(responseUrl);
     }
 }
