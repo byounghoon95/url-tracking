@@ -3,6 +3,7 @@ package com.example.urltracking.api.controller.urls;
 import com.example.urltracking.api.controller.urls.request.UrlCountRequest;
 import com.example.urltracking.api.controller.urls.request.UrlCreateRequest;
 import com.example.urltracking.api.controller.urls.request.UrlUpdateRequest;
+import com.example.urltracking.api.service.dailycount.DailyCountService;
 import com.example.urltracking.api.service.urls.UrlsService;
 import com.example.urltracking.api.service.urls.response.UrlCountResponse;
 import com.example.urltracking.enums.CodeEnum;
@@ -31,6 +32,8 @@ class UrlsApiControllerTest {
     private ObjectMapper objectMapper;
     @MockBean
     private UrlsService urlsService;
+    @MockBean
+    private DailyCountService dailyCountService;
 
     private UrlCreateRequest urlCreateRequest() {
         return UrlCreateRequest.builder()
