@@ -1,6 +1,5 @@
 package com.example.urltracking.api.service.urls;
 
-import com.example.urltracking.api.controller.urls.request.UrlCountRequest;
 import com.example.urltracking.api.repository.dailycount.DailyCountRepository;
 import com.example.urltracking.api.repository.urls.UrlsRepository;
 import com.example.urltracking.api.service.urls.request.UrlCountServiceRequest;

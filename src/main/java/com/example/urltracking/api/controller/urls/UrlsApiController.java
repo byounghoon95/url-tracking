@@ -28,7 +28,7 @@ public class UrlsApiController {
         return new CommonResponse<>(urlsService.createUrl(request.toServiceRequest()));
     }
 
-    @ApiOperation(value = "url 조회수 추가", notes = "url을 받아 일간 조회수와 총 조회수를 +1 추가한다")
+    @ApiOperation(value = "url 조회수 추가", notes = "url을 받아 오늘/누적 조회수를 +1 추가한다")
     @PostMapping("/update")
     public CommonResponse<UrlUpdateResponse> updateUrlCount(@RequestBody @Valid UrlUpdateRequest request) {
         return new CommonResponse<>(urlsService.updateUrlCount(request.toServiceRequest()));
