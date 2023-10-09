@@ -5,9 +5,6 @@ import com.example.urltracking.api.service.dailycount.request.DailyStatisticsSer
 import com.example.urltracking.api.service.dailycount.response.DailyStatisticsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,8 +33,8 @@ class DailyCountServiceTest extends CommonServiceTest {
         assertThat(response)
                 .extracting("trackingUrl", "count", "date")
                 .containsExactlyInAnyOrder(
-                        tuple("https://make.my.url/1", 3, LocalDate.of(2023, 10, 8)),
-                        tuple("https://make.my.url/1", 2, LocalDate.of(2023, 10, 9))
+                        tuple("https://make.my.url/1", 3, LocalDate.of(2023, 10, 2)),
+                        tuple("https://make.my.url/1", 2, LocalDate.of(2023, 10, 3))
                         );
     }
 

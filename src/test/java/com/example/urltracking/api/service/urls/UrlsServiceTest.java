@@ -7,12 +7,15 @@ import com.example.urltracking.api.service.urls.request.UrlUpdateServiceRequest;
 import com.example.urltracking.api.service.urls.response.UrlCountResponse;
 import com.example.urltracking.api.service.urls.response.UrlCreateResponse;
 import com.example.urltracking.api.service.urls.response.UrlUpdateResponse;
+import com.example.urltracking.entity.dailycount.DailyCount;
+import com.example.urltracking.entity.urls.Urls;
 import com.example.urltracking.exception.CustomException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -25,7 +28,7 @@ class UrlsServiceTest extends CommonServiceTest {
     void create_url() {
         //given
         UrlCreateServiceRequest request = UrlCreateServiceRequest.builder()
-                .url("localhost://test/4")
+                .url("localhost://test/10")
                 .build();
 
         //when

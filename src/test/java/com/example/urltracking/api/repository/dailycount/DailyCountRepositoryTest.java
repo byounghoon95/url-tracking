@@ -4,8 +4,6 @@ import com.example.urltracking.CommonRepositoryTest;
 import com.example.urltracking.entity.dailycount.DailyCount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +28,7 @@ class DailyCountRepositoryTest extends CommonRepositoryTest {
         assertThat(response.getDailyCount()).isEqualTo(5);
     }
 
-    @DisplayName("트래킹 url과 이라로 7일간의 조회수를 조회한다")
+    @DisplayName("트래킹 url과 일자로 7일간의 조회수를 조회한다")
     @Test
     void find_all_by_url_and_date() {
         // given
@@ -46,8 +44,8 @@ class DailyCountRepositoryTest extends CommonRepositoryTest {
         assertThat(response)
                 .extracting("trackingUrl", "dailyCount", "date")
                 .containsExactlyInAnyOrder(
-                        tuple("https://make.my.url/1", 3, LocalDate.of(2023, 10, 8)),
-                        tuple("https://make.my.url/1", 2, LocalDate.of(2023, 10, 9))
+                        tuple("https://make.my.url/1", 3, LocalDate.of(2023, 10, 2)),
+                        tuple("https://make.my.url/1", 2, LocalDate.of(2023, 10, 3))
                 );
     }
 }
