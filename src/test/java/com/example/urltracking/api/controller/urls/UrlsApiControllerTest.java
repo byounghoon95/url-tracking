@@ -16,8 +16,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ActiveProfiles("test")
-@WebMvcTest
 class UrlsApiControllerTest extends CommonControllerTest {
 
     @DisplayName("새로운 url을 등록한다")

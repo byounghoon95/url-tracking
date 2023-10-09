@@ -10,8 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
-@DataJpaTest
 class UrlsRepositoryTest extends CommonRepositoryTest {
     @DisplayName("트래킹 url이 중복되는지 확인하고 중복되면 true를 반환한다")
     @Test

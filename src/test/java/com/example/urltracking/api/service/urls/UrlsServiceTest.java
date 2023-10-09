@@ -19,9 +19,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Transactional
-@ActiveProfiles("test")
-@SpringBootTest
 class UrlsServiceTest extends CommonServiceTest {
     @DisplayName("새로운 url을 등록한다")
     @Test

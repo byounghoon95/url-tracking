@@ -13,8 +13,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@ActiveProfiles("test")
-@DataJpaTest
 class DailyCountRepositoryTest extends CommonRepositoryTest {
 
     @DisplayName("트래킹 url로 일간 조회수를 조회한다")

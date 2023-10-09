@@ -16,9 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Transactional
-@ActiveProfiles("test")
-@SpringBootTest
 class DailyCountServiceTest extends CommonServiceTest {
 
     @DisplayName("7일간의 조회수 통계 데이터를 조회한다")
