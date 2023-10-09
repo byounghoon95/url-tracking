@@ -1,7 +1,6 @@
 package com.example.urltracking.api.controller.dailycount.request;
 
-import com.example.urltracking.api.service.dailycount.request.DailyCountServiceRequest;
-import com.example.urltracking.api.service.urls.request.UrlCountServiceRequest;
+import com.example.urltracking.api.service.dailycount.request.DailyStatisticsServiceRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -31,8 +30,8 @@ public class DailyStatisticsRequest {
         this.date = date;
     }
 
-    public DailyCountServiceRequest toServiceRequest() {
-        return DailyCountServiceRequest.builder()
+    public DailyStatisticsServiceRequest toServiceRequest() {
+        return DailyStatisticsServiceRequest.builder()
                 .trackingUrl(trackingUrl)
                 .date(date)
                 .build();

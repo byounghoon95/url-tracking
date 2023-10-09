@@ -8,13 +8,13 @@ import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
-public class DailyCountServiceRequest {
+public class DailyStatisticsServiceRequest {
 
     private String trackingUrl;
     private LocalDate date;
 
     @Builder
-    public DailyCountServiceRequest(String trackingUrl, LocalDate date) {
+    public DailyStatisticsServiceRequest(String trackingUrl, LocalDate date) {
         this.trackingUrl = trackingUrl;
         this.date = date;
     }
