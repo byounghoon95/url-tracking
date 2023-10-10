@@ -99,6 +99,40 @@ class UrlsServiceTest extends CommonServiceTest {
         assertThat(request.getTotalCount() + 1).isEqualTo(response.getTotalCount());
     }
 
+    @DisplayName("여러 쓰레드에서 주문 요청이 들어올 때, 조회수 증가 로직을 검증한다")
+    @Test
+    void update_url_count_with_concurrent_10_request() throws InterruptedException {
+        //given
+        UrlUpdateServiceRequest request = UrlUpdateServiceRequest.builder()
+                .url("localhost://test/3")
+                .trackingUrl("https://make.my.url/3")
+                .dailyCount(0)
+                .totalCount(4)
+                .build();
+
+        //when
+        int threadCount = 10;
+        ExecutorService executorService2 = Executors.newFixedThreadPool(threadCount);
+        CountDownLatch latch2 = new CountDownLatch (threadCount);
+
+        for (int i = 0; i < 10; i++) {
+            executorService2.execute(() -> {
+                urlsService.updateUrlCount(request);
+                latch2.countDown();
+            });
+        }
+
+        latch2.await();
+
+        //then
+        Urls urlResponse = urlsRepository.findByTrackingUrl(request.getTrackingUrl()).get();
+        DailyCount dailyCountResponse = dailyCountRepository.findByTrackingUrlWithDate(request.getTrackingUrl()).get();
+
+        assertThat(dailyCountResponse.getDailyCount()).isEqualTo(10);
+        assertThat(urlResponse.getTotalCount()).isEqualTo(14);
+    }
+
+
     @DisplayName("url로 오늘/누적 조회수를 조회한다")
     @Test
     void get_url_count() {
