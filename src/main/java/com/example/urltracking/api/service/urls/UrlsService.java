@@ -61,6 +61,7 @@ public class UrlsService {
         return UrlUpdateResponse.of(findUrl);
     }
 
+    @Transactional
     public UrlCountResponse getUrlCount(UrlCountServiceRequest request) {
         urlsRepository.findByTrackingUrl(request.getTrackingUrl()).orElseThrow(
                 () -> new CustomException(CodeEnum.URL_NOTFOUND)

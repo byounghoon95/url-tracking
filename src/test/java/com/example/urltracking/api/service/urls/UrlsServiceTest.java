@@ -7,28 +7,28 @@ import com.example.urltracking.api.service.urls.request.UrlUpdateServiceRequest;
 import com.example.urltracking.api.service.urls.response.UrlCountResponse;
 import com.example.urltracking.api.service.urls.response.UrlCreateResponse;
 import com.example.urltracking.api.service.urls.response.UrlUpdateResponse;
+import com.example.urltracking.entity.dailycount.DailyCount;
+import com.example.urltracking.entity.urls.Urls;
 import com.example.urltracking.exception.CustomException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Transactional
-@ActiveProfiles("test")
-@SpringBootTest
 class UrlsServiceTest extends CommonServiceTest {
     @DisplayName("새로운 url을 등록한다")
     @Test
     void create_url() {
         //given
         UrlCreateServiceRequest request = UrlCreateServiceRequest.builder()
-                .url("localhost://test/4")
+                .url("localhost://test/10")
                 .build();
 
         //when
@@ -98,6 +98,40 @@ class UrlsServiceTest extends CommonServiceTest {
         assertThat(request.getDailyCount() + 1).isEqualTo(response.getDailyCount());
         assertThat(request.getTotalCount() + 1).isEqualTo(response.getTotalCount());
     }
+
+    @DisplayName("여러 쓰레드에서 주문 요청이 들어올 때, 조회수 증가 로직을 검증한다")
+    @Test
+    void update_url_count_with_concurrent_10_request() throws InterruptedException {
+        //given
+        UrlUpdateServiceRequest request = UrlUpdateServiceRequest.builder()
+                .url("localhost://test/3")
+                .trackingUrl("https://make.my.url/3")
+                .dailyCount(0)
+                .totalCount(4)
+                .build();
+
+        //when
+        int threadCount = 10;
+        ExecutorService executorService2 = Executors.newFixedThreadPool(threadCount);
+        CountDownLatch latch2 = new CountDownLatch (threadCount);
+
+        for (int i = 0; i < 10; i++) {
+            executorService2.execute(() -> {
+                urlsService.updateUrlCount(request);
+                latch2.countDown();
+            });
+        }
+
+        latch2.await();
+
+        //then
+        Urls urlResponse = urlsRepository.findByTrackingUrl(request.getTrackingUrl()).get();
+        DailyCount dailyCountResponse = dailyCountRepository.findByTrackingUrlWithDate(request.getTrackingUrl()).get();
+
+        assertThat(dailyCountResponse.getDailyCount()).isEqualTo(10);
+        assertThat(urlResponse.getTotalCount()).isEqualTo(14);
+    }
+
 
     @DisplayName("url로 오늘/누적 조회수를 조회한다")
     @Test

@@ -4,14 +4,9 @@ import com.example.urltracking.CommonRepositoryTest;
 import com.example.urltracking.entity.urls.Urls;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
-@DataJpaTest
 class UrlsRepositoryTest extends CommonRepositoryTest {
     @DisplayName("트래킹 url이 중복되는지 확인하고 중복되면 true를 반환한다")
     @Test
@@ -53,7 +48,7 @@ class UrlsRepositoryTest extends CommonRepositoryTest {
         assertThat(response.getTrackingUrl()).isEqualTo("https://make.my.url/1");
     }
 
-    @DisplayName("트래킹 url로 오늘/누적 카운드를 반환한다")
+    @DisplayName("트래킹 url로 오늘/누적 카운트를 반환한다")
     @Test
     void find_count_by_tracking_url() {
         // given

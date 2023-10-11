@@ -13,8 +13,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ActiveProfiles("test")
-@WebMvcTest
 class DailyCountApiControllerTest extends CommonControllerTest {
 
     @DisplayName("7일간의 조회수 통계 데이터를 조회한다")
